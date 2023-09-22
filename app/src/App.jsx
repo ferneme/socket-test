@@ -4,7 +4,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:8000/", {
+const socket = io("http://localhost:3000/", {
   transports: ["websocket", "xhr-polling"],
 });
 
