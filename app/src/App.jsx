@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import io from "socket.io-client";
+import Card from "./assets/Card";
+import data from "./assets/seed";
 
 const socket = io("https://be-socket-s6m3.onrender.com/", {
   transports: ["websocket", "xhr-polling"],
 });
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const [photos, setPhotos] = useState([]);
   useEffect(() => {
     socket.on("msg", (data) => console.log(data));
     return () => {
@@ -19,28 +18,26 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    // fetch("https://api.pexels.com/v1/search?query=parks", {
+    //   headers: {
+    //     Authorization:
+    //       "oTMZUqxuqQpPerjw8b0JaIHXcmlfAOn2DHYBcg8RU6iiWCYt3K0fpKLQ",
+    //   },
+    // }).then(async (resp) => {
+    //   setPhotos((await resp.json()).photos);
+    // });
+    setPhotos(JSON.parse(data));
+  }, []);
+
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h2>Image Gallery</h2>
+      <div className="cont">
+        {photos.map((photo) => {
+          return <Card key={photo.id} pic={photo} />;
+        })}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
