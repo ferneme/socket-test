@@ -2,12 +2,6 @@ export default function Card({ pic }) {
   //const [imgLoaded, setImgLoaded] = useState(false);
   //const ratio = imgLoaded.width > imgLoaded.height ? "width" : "height";
 
-  const imgCSS = {
-    width: "100%",
-    objectFit: "cover",
-    objectPosition: "center",
-  };
-
   //   useEffect(() => {
   //     const image = new Image();
   //     image.src = pic.src.medium;
@@ -16,15 +10,9 @@ export default function Card({ pic }) {
   //     };
   //   }, [pic.src.medium]);
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div
-        style={{
-          height: "300px",
-          overflow: "hidden",
-          display: "flex",
-        }}
-      >
-        <img style={imgCSS} src={pic.src.large} />
+    <div className="card-cont">
+      <div className="img-cont">
+        <img className="image" src={pic.src.large} />
       </div>
       <p>{pic.alt}</p>
     </div>
